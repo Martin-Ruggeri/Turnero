@@ -2,11 +2,17 @@
 
 import * as express from "express";
 
-/**
- * Desacoplamos las rutas, los devs pueden tocar este archivo
- * libremente, pero no el archivo express.ts
- */
-export function initModules(app: express.Express) {
+import * as authorization from "../authorization/auth.routes";
+import * as user from "../user/user.route";
+import * as rol from "../Rol/rol.route";
 
+/**
+  * Desacoplamos las rutas
+  */
+
+export function initModules(app: express.Express) {
+    authorization.initModule(app);
+    user.initModule(app);
+    rol.initModule(app);
 }
 

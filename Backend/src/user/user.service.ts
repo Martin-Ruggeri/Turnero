@@ -1,11 +1,11 @@
 "use strict";
-import * as express from "express";
-
 import { IUser } from "./user.model"
 import * as repository from "./user.repository"; 
 
 import { IRol } from "../rol/rol.model";
 import * as serviceRol from "../rol/rol.service";
+
+import * as serviceAuth from "../authorization/auth.service";
 
 
 export async function findAll(): Promise<IUser[]> {
@@ -41,6 +41,9 @@ export async function findByEmail(email: string): Promise<IUser> {
 
 export async function save(user: IUser): Promise<IUser> {
     try{
+        // Encriptar password
+        user.password = await serviceAuth.encryptPassword(user.password);
+
         // Crear Usuario
         const newUser: IUser = await repository.save(user);
 

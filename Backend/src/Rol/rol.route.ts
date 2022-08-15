@@ -1,5 +1,6 @@
 "use strict";
 import * as express from "express";
+import { authAdmin } from "../token/token.controller";
 
 import {findAll, findById, save, removeById} from "./rol.controller";
 
@@ -8,11 +9,11 @@ export function initModule(app: express.Express) {
     // Rutas de acceso a rol
     app
     .route("/api/rol")
-    .get(findAll)
-    .post(save);
+    .get(authAdmin, findAll)
+    .post(authAdmin, save);
   
     app
     .route("/api/rol/:id")
-    .get(findById)
-    .delete(removeById);
+    .get(authAdmin, findById)
+    .delete(authAdmin, removeById);
 }

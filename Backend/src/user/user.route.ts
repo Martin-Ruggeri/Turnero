@@ -1,5 +1,6 @@
 "use strict";
 import * as express from "express";
+import { onlyLoggedIn , authAdmin , authCustomer} from "../token/token.controller";
 
 import {findAll, findById, save, updateById, removeById, addRolToUser, removeRolToUser} from "./user.controller";
 
@@ -8,20 +9,20 @@ export function initModule(app: express.Express) {
     // Rutas de acceso a user
     app
     .route("/api/user")
-    .get(findAll)
-    .post(save);
+    .get(onlyLoggedIn, findAll)
+    .post(authAdmin, save);
   
     app
     .route("/api/user/:id")
-    .get(findById)
-    .put(updateById)
-    .delete(removeById);
+    .get(onlyLoggedIn, findById)
+    .put(onlyLoggedIn, updateById)
+    .delete(authCustomer, removeById);
 
     app
     .route("/api/user/:idUser/addRol")
-    .post(addRolToUser);
+    .post(authAdmin, addRolToUser);
 
     app
     .route("/api/user/:idUser/removeRol")
-    .post(removeRolToUser);
+    .post(authAdmin, removeRolToUser);
 }

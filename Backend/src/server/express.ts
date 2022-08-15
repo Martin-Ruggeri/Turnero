@@ -8,11 +8,11 @@ import * as express from "express";
 import * as morgan from "morgan";
 import * as path from "path";
 
-import { Config } from "./environment";
+import { ConfigExpress } from "./environment";
 
 import * as routes from "./routes";
 
-export function init(appConfig: Config): express.Express {
+export function init(appConfig: ConfigExpress): express.Express {
   const app = express();
   app.set("port", appConfig.port);
 

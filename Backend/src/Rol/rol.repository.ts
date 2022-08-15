@@ -2,6 +2,7 @@
 
 import { IRol } from "./rol.model"
 import { pool } from "../server/database"
+import { IUser } from "../user/user.model";
 
 export async function findAll(): Promise<IRol[]>{
     const sql: string = `SELECT * FROM ROL`;
@@ -36,6 +37,23 @@ export async function findByName(rolName: string): Promise<IRol> {
         console.error(error);
         throw new Error(`Error BD (findByName) Rol: { Rolname: ${rolName} }`);
     }
+}
+
+export async function findRolsByUser(user:IUser): Promise<IRol[]> {
+    const sql: string =`SELECT R.ROL_ID, R.ROLNAME 
+                        FROM USERS U
+                            INNER JOIN USERS_ROL UR ON UR.USER_ID = U.USER_ID
+                            INNER JOIN ROL R ON R.ROL_ID = UR.ROL_ID
+                        WHERE U.USER_ID = $1`;
+    const values = [user.user_id];
+    try{
+        const { rows } = await pool.query(sql, values);
+        return rows;
+    }catch(error){
+        console.error(error);
+        throw new Error(`Error BD (findRolsByUser) User: ${JSON.stringify(user)}`);
+    }
+
 }
 
 

@@ -1,8 +1,9 @@
 "use strict";
-import * as express from "express";
 
 import { IRol } from "./rol.model"
 import * as repository from "./rol.repository"; 
+
+import { IUser } from "../user/user.model"
 
 
 export async function findAll(): Promise<IRol[]>{
@@ -31,6 +32,16 @@ export async function findByName(rolName: string): Promise<IRol> {
         return rol;
     }catch(error){
         console.log(`Error Service (findByName) Rol: { Id: ${rolName}}`);
+        throw new Error(error);
+    }
+}
+
+export async function findRolsByUser(user:IUser): Promise<IRol[]> {
+    try{
+        const rols: IRol[] = await repository.findRolsByUser(user);
+        return rols;
+    }catch(error){
+        console.log(`Error Service (findRolsByUser) User: ${JSON.stringify(user)}`);
         throw new Error(error);
     }
 }

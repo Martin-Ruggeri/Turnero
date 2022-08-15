@@ -1,5 +1,5 @@
 "use strict";
-import { pool } from "../server/database"
+import { pool } from "../../server/database"
 
 import { Iturn } from "./turn.model";
 

@@ -1,7 +1,7 @@
 "use strict";
 
-import { ISchedule } from "../schedule/schedule.model";
-import { IUser } from "../user/user.model";
+import { ISchedule } from "../../schedule/schedule.model";
+import { IUser } from "../../user/user.model";
 
 
 export interface IStateTurn extends Document {

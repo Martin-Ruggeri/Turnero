@@ -5,50 +5,52 @@ import { IRol } from "./rol.model"
 import * as repository from "./rol.repository"; 
 
 
-export async function findAll(request: express.Request, response: express.Response) {
+export async function findAll(): Promise<IRol[]>{
     try{
         const rols: IRol[] = await repository.findAll();
-        response.status(200).json(rols);
+        return rols;
     }catch(error){
-        console.log(error);
         console.log(`Error Service (findAll) Rol`);
-        response.status(404).json(`Error no se pududieron encontrar los roles`);
+        throw new Error(error);
     }
 }
 
-export async function findById(request: express.Request, response: express.Response) {
-    const id: number = parseInt(request.params.id);
+export async function findById(id: number): Promise<IRol> {
     try{
         const rol: IRol = await repository.findById(id);
-        response.status(200).json(rol);
+        return rol;
     }catch(error){
-        console.log(error);
         console.log(`Error Service (findById) Rol: { Id: ${id}}`);
-        response.status(404).json(`Error no se pudo encontrar el rol ${id}`);
+        throw new Error(error);
     }
 }
 
-export async function save(request: express.Request, response: express.Response) {
-    const rol: IRol = request.body;
+export async function findByName(rolName: string): Promise<IRol> {
+    try{
+        const rol: IRol = await repository.findByName(rolName);
+        return rol;
+    }catch(error){
+        console.log(`Error Service (findByName) Rol: { Id: ${rolName}}`);
+        throw new Error(error);
+    }
+}
+
+export async function save(rol: IRol): Promise<IRol> {
     try{
         const newRol: IRol = await repository.save(rol);
-        response.status(201).json(newRol);
+        return newRol;
     }catch(error){
-        console.log(error);
-        console.log(`Error Service (save) Rol: ${rol}`);
-        response.status(404).json(`Error no se pudo dar de alta al rol ${JSON.stringify(rol)}`);
+        console.log(`Error Service (save) Rol: ${JSON.stringify(rol)}`);
+        throw new Error(error);
     }
 }
 
 
-export async function removeById(request: express.Request, response: express.Response) {
-    const id: number = parseInt(request.params.id);
+export async function removeById(id:number) {
     try{
         await repository.removeById(id);
-        response.status(204).json(`Rol ${id} Eliminado`);
     }catch(error){
-        console.log(error);
         console.log(`Error Service (updateById) Rol: {Id: ${id}}`);
-        response.status(404).json(`Error no se pudo eliminar el rol ${id}`);
+        throw new Error(error);
     }
 }

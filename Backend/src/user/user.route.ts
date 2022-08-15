@@ -1,7 +1,7 @@
 "use strict";
 import * as express from "express";
 
-import {findAll, findById, save, updateById, removeById, addRolToUser, removeRolToUser} from "./user.service";
+import {findAll, findById, save, updateById, removeById, addRolToUser, removeRolToUser} from "./user.controller";
 
 
 export function initModule(app: express.Express) {

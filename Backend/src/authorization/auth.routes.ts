@@ -1,7 +1,7 @@
 "use strict";
 
 import * as express from "express";
-import {signIn, signUp} from "./auth.service";
+import {signIn, signUp} from "./auth.controller";
 
 export function initModule(app: express.Express) {
     // Rutas de acceso a user

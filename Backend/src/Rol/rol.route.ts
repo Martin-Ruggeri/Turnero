@@ -1,7 +1,7 @@
 "use strict";
 import * as express from "express";
 
-import {findAll, findById, save, removeById} from "./rol.service";
+import {findAll, findById, save, removeById} from "./rol.controller";
 
 
 export function initModule(app: express.Express) {

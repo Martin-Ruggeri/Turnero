@@ -26,12 +26,12 @@ export async function findById(id: number): Promise<IRol> {
     }
 }
 
-export async function findByName(rolName: string): Promise<IRol> {
+export async function findByName(name: string): Promise<IRol> {
     try{
-        const rol: IRol = await repository.findByName(rolName);
+        const rol: IRol = await repository.findByName(name);
         return rol;
     }catch(error){
-        console.log(`Error Service (findByName) Rol: { Id: ${rolName}}`);
+        console.log(`Error Service (findByName) Rol: { Name: ${name}}`);
         throw new Error(error);
     }
 }
@@ -61,7 +61,7 @@ export async function removeById(id:number) {
     try{
         await repository.removeById(id);
     }catch(error){
-        console.log(`Error Service (updateById) Rol: {Id: ${id}}`);
+        console.log(`Error Service (removeById) Rol: {Id: ${id}}`);
         throw new Error(error);
     }
 }

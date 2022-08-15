@@ -24,9 +24,9 @@ export async function findById(id: number): Promise<Iturn> {
     }
 }
 
-export async function findAllBySchedule(idSchedule: number): Promise<Iturn> {
+export async function findAllBySchedule(idSchedule: number): Promise<Iturn[]> {
     try{
-        const turns: Iturn = await repository.findAllBySchedule(idSchedule);
+        const turns: Iturn[] = await repository.findAllBySchedule(idSchedule);
         return turns;
     }catch(error){
         console.log(`Error Service (findByName) Turn: { Id Schedule: ${idSchedule}}`);

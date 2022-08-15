@@ -30,7 +30,7 @@ export async function findById(id: number): Promise<Iturn> {
 }
 
 
-export async function findAllBySchedule(idSchedule: number): Promise<Iturn> {
+export async function findAllBySchedule(idSchedule: number): Promise<Iturn[]> {
     const sql: string = sqlAll + ` WHERE SCHEDULE_ID = $1`;
     const values = [idSchedule];
     try{

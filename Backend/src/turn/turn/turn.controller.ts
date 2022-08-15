@@ -31,8 +31,8 @@ export async function findById(request: express.Request, response: express.Respo
 export async function findAllBySchedule(request: express.Request, response: express.Response) {
     const idSchedule: number = parseInt(request.params.idSchedule);
     try{
-        const turn: Iturn = await service.findAllBySchedule(idSchedule);
-        response.status(200).json(turn);
+        const turns: Iturn[] = await service.findAllBySchedule(idSchedule);
+        response.status(200).json(turns);
     }catch(error){
         console.log(error);
         console.log(`Error Controller (findAllBySchedule) Turn: { Id Schedule: ${idSchedule}}`);

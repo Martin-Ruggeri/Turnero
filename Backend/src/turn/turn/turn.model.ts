@@ -2,12 +2,7 @@
 
 import { ISchedule } from "../../schedule/schedule.model";
 import { IUser } from "../../user/user.model";
-
-
-export interface IStateTurn extends Document {
-    state_turn_code: string;
-    state_name: string;
-}
+import { IStateTurn } from "../stateTurn/stateTurn.model";
 
 
 export interface Iturn extends Document {

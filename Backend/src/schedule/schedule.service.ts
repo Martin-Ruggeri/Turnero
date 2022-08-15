@@ -44,17 +44,6 @@ export async function save(schedule: ISchedule): Promise<ISchedule> {
     }
 }
 
-export async function updateById(id:number, schedule: ISchedule): Promise<ISchedule> {
-    try{
-        const scheduleUpdate: ISchedule = await repository.updateById(id, schedule);
-        return scheduleUpdate;
-    }catch(error){
-        console.log(`Error Service (updateById) Schedule: ${JSON.stringify(schedule)} , Id: ${id}`);
-        throw new Error(error);
-    }
-}
-
-
 export async function removeById(id:number) {
     try{
         await repository.removeById(id);

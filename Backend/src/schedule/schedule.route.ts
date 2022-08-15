@@ -2,7 +2,7 @@
 import * as express from "express";
 import { onlyLoggedIn , authAdmin } from "../token/token.controller";
 
-import {findAll, findById, save, updateById, removeById} from "./schedule.controller";
+import {findAll, findById, save, removeById} from "./schedule.controller";
 
 
 export function initModule(app: express.Express) {
@@ -15,6 +15,5 @@ export function initModule(app: express.Express) {
     app
     .route("/api/schedule/:id")
     .get(onlyLoggedIn, findById)
-    .put(authAdmin, updateById)
     .delete(authAdmin, removeById);
 }

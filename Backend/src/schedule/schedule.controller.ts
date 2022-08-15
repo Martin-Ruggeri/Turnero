@@ -40,20 +40,6 @@ export async function save(request: express.Request, response: express.Response)
     }
 }
 
-
-export async function updateById(request: express.Request, response: express.Response) {
-    const id: number = parseInt(request.params.id);
-    const schedule: ISchedule = request.body;
-    try{
-        const scheduleUpdate: ISchedule = await service.updateById(id, schedule);
-        response.status(200).json(scheduleUpdate);
-    }catch(error){
-        console.log(error);
-        console.log(`Error Controller (updateById) Schedule: ${JSON.stringify(schedule)} , Id: ${id}`);
-        response.status(404).json(`Error no se pudo actualizar la agenda ${id}`);
-    }
-}
-
 export async function removeById(request: express.Request, response: express.Response) {
     const id: number = parseInt(request.params.id);
     try{

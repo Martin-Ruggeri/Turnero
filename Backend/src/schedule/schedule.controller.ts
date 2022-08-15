@@ -47,7 +47,7 @@ export async function removeById(request: express.Request, response: express.Res
         response.status(204).json(`Agenda ${id} Eliminada`);
     }catch(error){
         console.log(error);
-        console.log(`Error Controller (updateById) Schedule: {Id: ${id}}`);
+        console.log(`Error Controller (removeById) Schedule: {Id: ${id}}`);
         response.status(404).json(`Error no se pudo eliminar la agenda ${id}`);
     }
 }

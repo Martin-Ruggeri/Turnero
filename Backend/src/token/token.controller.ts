@@ -23,26 +23,31 @@ export async function authCustomer(request: express.Request, response: express.R
 
 
 async function validateToken (request: express.Request, response: express.Response, next: express.NextFunction, rolName: string){
+    
+    // Valida que exista token
     const token: string = request.headers.authorization;
-
     if(!token) return response.status(401).json({message: `Unauthorized`});
 
-    const decode: IDecode = JSON.parse(service.decodeToken(token));
+    try{
+        // Decodifica token
+        const decode: IDecode = JSON.parse(service.decodeToken(token));
 
-    // Valida que exista el usuario
-    const user: IUser = await serviceUser.findById(decode.idUser);
-    if(!user) return response.status(401).json({message: `Unauthorized`});
+        // Valida que exista el usuario
+        const user: IUser = await serviceUser.findById(decode.idUser);
+        if(!user) return response.status(401).json({message: `Unauthorized`});
 
-    // Si no requiere de ningun rol => esta autorizado
-    if (rolName == "loggedIn") return next();
+        // Si no requiere de ningun rol => Esta autorizado
+        if (rolName == "loggedIn") return next();
 
-    // Valida que el usuario tenga el rol necesario
-    const rols: IRol[] = await serviceRol.findRolsByUser(user);
-    if(!rols) return response.status(403).json({message: `insufficient permission`});
+        // Valida que el usuario tenga el rol necesario
+        const rols: IRol[] = await serviceRol.findRolsByUser(user);
+        if(!rols) return response.status(403).json({message: `insufficient permission`});
 
-    for (const rol of rols) {
-        if(rol.rolname == rolName) return next();
+        for (const rol of rols) {
+            if(rol.rolname == rolName) return next();
+        }
+    }catch(error){
+        console.log(error);
     }
-    
     return response.status(403).json({message: `insufficient permission`});
 }

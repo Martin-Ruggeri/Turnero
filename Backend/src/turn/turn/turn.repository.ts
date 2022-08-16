@@ -1,7 +1,9 @@
 "use strict";
+import { IUser } from "../../user/user.model";
 import { pool } from "../../server/database"
 
 import { Iturn } from "./turn.model";
+import { IStateTurn } from "../stateTurn/stateTurn.model";
 
 const sqlAll: string = `SELECT T.*, ST.STATE_NAME FROM TURN T INNER JOIN STATE_TURN ST ON ST.STATE_TURN_CODE = T.STATE_TURN_CODE`;
 
@@ -77,5 +79,39 @@ export async function removeById(id:number) {
     }catch(error){
         console.error(error);
         throw new Error(`Error BD (removeById) Turn: { Id: ${id} }`);
+    }
+}
+
+export async function addUserTurn( turn: Iturn, user: IUser) {
+    const sql: string = `UPDATE TURN SET USER_ID = $1, UPDATE_ON = CURRENT_TIMESTAMP WHERE TURN_ID = $2`;
+    const values = [user.user_id, turn.turn_id];
+    try{
+        await pool.query(sql, values);
+    }catch(error){
+        console.error(error);
+        throw new Error(`Error BD (addUserTurn) Turn: { Id: ${turn.turn_id} }; User: { Id: ${user.user_id}}`);
+    }
+}
+
+export async function removeUserTurn( turn: Iturn) {
+    const sql: string = `UPDATE TURN SET USER_ID = NULL, UPDATE_ON = CURRENT_TIMESTAMP WHERE TURN_ID = $1`;
+    const values = [turn.turn_id];
+    try{
+        await pool.query(sql, values);
+    }catch(error){
+        console.error(error);
+        throw new Error(`Error BD (removeUserTurn) Turn: { Id: ${turn.turn_id} }`);
+    }
+}
+
+
+export async function updateStateTurn( turn: Iturn, state: IStateTurn) {
+    const sql: string = `UPDATE TURN SET STATE_TURN_CODE = $1, UPDATE_ON = CURRENT_TIMESTAMP WHERE TURN_ID = $2`;
+    const values = [state.state_turn_code, turn.turn_id];
+    try{
+        await pool.query(sql, values);
+    }catch(error){
+        console.error(error);
+        throw new Error(`Error BD (addUserTurn) Turn: { Id: ${turn.turn_id} }; State_Turn: { State_Turn_Code: ${state.state_turn_code}}`);
     }
 }

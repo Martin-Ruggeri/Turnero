@@ -1,5 +1,7 @@
 "use strict";
 import * as express from "express";
+import { IUser } from "../../user/user.model";
+import { IStateTurn } from "../stateTurn/stateTurn.model";
 
 import { Iturn } from "./turn.model"
 import * as service from "./turn.service"; 
@@ -61,5 +63,43 @@ export async function removeById(request: express.Request, response: express.Res
         console.log(error);
         console.log(`Error Controller (removeById) Turn: {Id: ${id}}`);
         response.status(404).json(`Error no se pudo eliminar el turno ${id}`);
+    }
+}
+
+export async function takeTurn(request: express.Request, response: express.Response) {
+    const idTurn: number = parseInt(request.params.id);
+    const user: IUser = request.body;
+    try{
+        await service.takeTurn(idTurn, user);
+        response.status(200).json(`Turno ${idTurn} Solicitado por el usuario ${user.user_id}`);
+    }catch(error){
+        console.log(error);
+        console.log(`Error Controller (takeTurn) Turn: { Id: ${idTurn}}; User: ${JSON.stringify(user)}`);
+        response.status(404).json(`Error no se pudo Solicitar el turno ${idTurn} para el usuario ${user.user_id}`);
+    }
+}
+
+export async function cancelTurn(request: express.Request, response: express.Response) {
+    const id: number = parseInt(request.params.id);
+    try{
+        await service.cancelTurn(id);
+        response.status(200).json(`Turno ${id} Cancelado, se paso a estado disponible`);
+    }catch(error){
+        console.log(error);
+        console.log(`Error Controller (cancelTurn) Turn: {Id: ${id}}`);
+        response.status(404).json(`Error no se pudo cancelar el turno ${id}`);
+    }
+}
+
+export async function updateStateTurn(request: express.Request, response: express.Response) {
+    const idTurn: number = parseInt(request.params.id);
+    const state: IStateTurn = request.body;
+    try{
+        await service.updateStateTurn(idTurn, state);
+        response.status(200).json(`El Turno ${idTurn} actualizo su estado a ${state.state_turn_code}`);
+    }catch(error){
+        console.log(error);
+        console.log(`Error Controller (updateStateTurn) Turn: { Id: ${idTurn}}; State_Turn: ${JSON.stringify(state)}`);
+        response.status(404).json(`Error no se pudo actualizar el estado del turno ${idTurn}`);
     }
 }

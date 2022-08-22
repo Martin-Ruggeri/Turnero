@@ -1,20 +1,19 @@
 import React from "react"
 
-import { MenuAdmin } from "./MenuAdmin";
-import { MenuMain } from "./MenuMain";
-import { MenuLogin } from "./MenuLogin";
+import { MenuAdmin } from "./menuAdmin";
+import { MenuMain } from "./menuMain";
+import { MenuLogin } from "./menuLogin";
 
-import "./Menu.css"
+import "./menu.css"
 
 export const Menu = () => {
 
-    const user = { name: "Martin", roles: ["admin", "customer"] };
+    const user = { name: "Martin", roles: ["ad"] };
     let menu = <MenuLogin />;
 
     if (user) {
         if (user.roles.includes("admin")) menu = <MenuAdmin />;
-        else menu = <MenuMain />;
-
+        else if (user.roles.includes("customer")) menu = <MenuMain />;
     }
 
     return (

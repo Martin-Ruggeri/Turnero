@@ -9,7 +9,7 @@ export const MenuLogin = () => {
         <div className="container-fluid">
             <div className="logo">
                 <NavLink to="/" className="navbar-brand">
-                    <img src="favicon.ico" alt="" width="50" height="40" />
+                    <img src="favicon.ico" alt="" width="60" height="50" />
                 </NavLink>
             </div>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +26,7 @@ export const MenuLogin = () => {
                         <NavLink to="/logIn" className="nav-link">Iniciar Sesión</NavLink>
                     </button>
                     <button className="btn btn-outline-secondary">
-                        <NavLink to="/registrate" className="nav-link">Registrarse</NavLink>
+                        <NavLink to="/singUp" className="nav-link">Registrarte</NavLink>
                     </button>
                 </div>
             </div>

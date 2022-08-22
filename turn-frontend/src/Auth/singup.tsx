@@ -4,13 +4,13 @@ import { Input } from "../common/components/Input";
 import { DangerLabel } from "../common/components/DangerLabel";
 import { ErrorHandler, useErrorHandler } from "../common/utils/errorHandler";
 
-import { login, ILogin } from "./authService";
+import { singUp, ISignUp } from "./authService";
 
 import "./login.css";
 
-export function Login() {
+export function SingUp() {
 
-    const [form, setForm] = useState({} as ILogin);
+    const [form, setForm] = useState({} as ISignUp);
 
     const error: ErrorHandler = useErrorHandler();
 
@@ -28,33 +28,59 @@ export function Login() {
 
         // VALIDACIONES
         error.clean();
+        if (!form.name) error.add("name", "Nombre requerido");
+        if (!form.lastname) error.add("lastname", "Apellido requerido");
         if (!form.email) error.add("email", "Correo requerido");
         if (!form.password) error.add("password", "Contraseña requerida");
         if (error.hasErrors()) return;
 
 
         try {
-            const token = await login(form);
+            const token = await singUp(form);
             alert('Token: ' + token.token);
         } catch (e) {
-            error.newErrorGeneric("Usuario o Contraseña incorrecta");
+            error.add("email", "El correo ya existe");
         }
     }
 
+
     return (
+
         <section className="text-center">
             {/* Background image */}
             <div className="p-5 bg-image background-image"></div>
 
             {/* Formulario */}
-            <div className="mx-auto background-form-login">
+            <div className="mx-4 mx-md-5 shadow-5-strong background-form">
                 <div className="card-body py-5 px-md-5">
                     <div className="row d-flex justify-content-center">
                         <div className="col-lg-6">
-                            <h2 className="fw-bold mb-5">Iniciar Sesión</h2>
+                            <h2 className="fw-bold mb-5">Create una Cuenta</h2>
                             <div>
+
+                                <div className="row">
+                                    <div className="col-md-6 mb-4">
+                                        <Input
+                                            label="Nombre"
+                                            name="name"
+                                            type="text"
+                                            errorHandler={error}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className="col-md-6 mb-4">
+                                        <Input
+                                            label="Apellido"
+                                            name="lastname"
+                                            type="text"
+                                            errorHandler={error}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                </div>
+
                                 <Input
-                                    label="Correo "
+                                    label="Correo"
                                     name="email"
                                     type="text"
                                     errorHandler={error}
@@ -71,7 +97,7 @@ export function Login() {
 
                                 <DangerLabel message={error.errorMessage} />
 
-                                <button className="btn btn-primary btn-lg m-3" onClick={loginClick}>Iniciar sesión</button>
+                                <button className="btn btn-primary btn-lg m-3" onClick={loginClick}>Crear Cuenta</button>
 
                             </div>
                         </div>
@@ -79,6 +105,5 @@ export function Login() {
                 </div>
             </div>
         </section>
-
     )
 }

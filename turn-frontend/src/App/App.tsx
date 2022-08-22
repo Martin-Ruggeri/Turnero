@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import { Menu } from "./Menu/Menu";
-import { Footer } from "./Footer/Footer";
-import { Login } from "../Auth/Login";
+import { Menu } from "./menu/menu";
+import { Footer } from "./footer/footer";
+import { Login } from "../auth/login";
+import { SingUp } from "../auth/singup";
+import { User } from "../user/user"; 
+
 
 const Home = () => <div>Home</div>;
 const About = () => <div>About</div>;
-const User = () => <div>User</div>;
 
 class App extends Component {
   render() {
@@ -22,6 +24,7 @@ class App extends Component {
               <Route path="/about" element={<About />} />
               <Route path="/user" element={<User />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/singup" element={<SingUp />} />
             </Routes>
           </main>
         <footer>

@@ -11,16 +11,16 @@ export function initModule(app: express.Express) {
     .route("/api/user")
     .get(onlyLoggedIn, findAll)
     .post(authAdmin, save);
-  
+
+    app
+    .route("/api/user/current")
+    .get(onlyLoggedIn, findCurrentUser);
+
     app
     .route("/api/user/:id")
     .get(onlyLoggedIn, findById)
     .put(onlyLoggedIn, updateById)
     .delete(authCustomer, removeById);
-
-    app
-    .route("/api/user/current")
-    .post(findCurrentUser);
 
     app
     .route("/api/user/:idUser/addRol")

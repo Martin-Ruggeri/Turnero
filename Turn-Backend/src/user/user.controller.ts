@@ -32,17 +32,18 @@ export async function findById(request: express.Request, response: express.Respo
 
 // Busca usuario a partir del token
 export async function findCurrentUser(request: express.Request, response: express.Response) {
+    const token: string = request.headers.authorization;
     try{
-        // Decodificar token
-        const token: string = request.headers.authorization;
+        // Decodificar Token
         const decode: IDecode = JSON.parse(serviceToken.decodeToken(token));
 
         // Buscar Usuario
         const user: IUser = await service.findById(decode.idUser);
         
         response.status(200).json(user);
-
     }catch(error){
+        console.log(error);
+        console.log(`Error Controller (findCurrentUser); Token: ${token}}`);
         response.status(404).json(`Error no se pudo encontrar el usuario de la sesión`);
     }
 }

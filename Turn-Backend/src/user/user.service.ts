@@ -45,12 +45,13 @@ export async function save(user: IUser): Promise<IUser> {
         user.password = await serviceAuth.encryptPassword(user.password);
 
         // Crear Usuario
-        const newUser: IUser = await repository.save(user);
+        let newUser: IUser = await repository.save(user);
 
         // Asignarle rol por defecto 'customer'
         const rol: IRol = await serviceRol.findByName(`customer`);
         if (rol.rol_id) await addRolToUser(newUser.user_id, rol.rol_id);
 
+        newUser = await findById(newUser.user_id);
         // Devolver usuario creado
         return newUser; 
     }catch(error){

@@ -7,11 +7,14 @@ export const MenuLogin = () => {
 
     return (
         <div className="container-fluid">
+            {/* Logo */}
             <div className="logo">
                 <NavLink to="/" className="navbar-brand">
                     <img src="favicon.ico" alt="" width="60" height="50" />
                 </NavLink>
             </div>
+
+            {/* Menu */}
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>

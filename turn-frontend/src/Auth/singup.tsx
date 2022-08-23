@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 import { Input } from "../common/components/Input";
 import { DangerLabel } from "../common/components/DangerLabel";
@@ -14,6 +15,7 @@ export function SingUp() {
 
     const error: ErrorHandler = useErrorHandler();
 
+    let navigate = useNavigate();
 
     // Carga la variable form con los datos ingresados en el formulario
     const handleChange = (e: any) => {
@@ -24,7 +26,7 @@ export function SingUp() {
     };
 
 
-    const loginClick = async () => {
+    const singUpClick = async () => {
 
         // VALIDACIONES
         error.clean();
@@ -36,8 +38,8 @@ export function SingUp() {
 
 
         try {
-            const token = await singUp(form);
-            alert('Token: ' + token.token);
+            await singUp(form);
+            navigate("/", { replace: true });
         } catch (e) {
             error.add("email", "El correo ya existe");
         }
@@ -97,7 +99,7 @@ export function SingUp() {
 
                                 <DangerLabel message={error.errorMessage} />
 
-                                <button className="btn btn-primary btn-lg m-3" onClick={loginClick}>Crear Cuenta</button>
+                                <button className="btn btn-primary btn-lg m-3" onClick={singUpClick}>Crear Cuenta</button>
 
                             </div>
                         </div>

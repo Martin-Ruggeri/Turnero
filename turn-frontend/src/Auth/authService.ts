@@ -38,7 +38,6 @@ export async function login(payload: ILogin): Promise<IToken> {
 
 export async function logout() {
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
     axios.defaults.headers.common.Authorization = "";
     cleanupSessionUser();
 }

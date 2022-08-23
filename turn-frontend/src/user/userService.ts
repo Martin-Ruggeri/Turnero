@@ -4,7 +4,7 @@ import { environment } from "../app/environment/environment"
 
 interface IRol{
     id: string;
-    nameRol: string;
+    rolname: string;
 }
 
 export interface IUser {

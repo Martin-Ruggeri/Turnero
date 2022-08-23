@@ -61,7 +61,7 @@ export function User() {
                                 <td>
                                     {user.roles.map((rol) => {
                                         return (
-                                            <p>{rol.nameRol}</p>
+                                            <p>{rol.rolname}</p>
                                         );
                                     })}
                                 </td>

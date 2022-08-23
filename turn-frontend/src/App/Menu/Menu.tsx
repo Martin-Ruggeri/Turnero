@@ -7,28 +7,27 @@ import { MenuLogin } from "./menuLogin";
 import { useSessionUser } from "../../auth/userStore"
 
 import "./menu.css"
+import { IUser } from "../../user/userService";
 
 export const Menu = () => {
 
     const user = useSessionUser();
 
-    let menu = <MenuLogin />;
-
-    console.log(`Menu 1: User: ${user}`);
-
-    if (user) {
-
-        console.log("Menu 2");
-        /*
-        user.roles.forEach((rol) => {
-            if(rol.nameRol === "admin") {
-                menu = <MenuAdmin />;
-                return;
+    const getMenu = (user: IUser | undefined): JSX.Element => {
+        if (user) {
+            for (const rol of user.roles) {
+                if(rol.rolname === "admin") {
+                    return <MenuAdmin />;
+                }
             }
-        });
-        */
-        menu = <MenuMain />;
+            return <MenuMain />;
+        }else{
+            return <MenuLogin />;
+        }
+
     }
+
+    let menu: JSX.Element = getMenu(user);
 
     return (
         <nav className="navbar navbar-expand-lg bg-light">

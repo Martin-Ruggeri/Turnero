@@ -6,7 +6,7 @@ import { ErrorHandler, useErrorHandler } from "../common/utils/errorHandler";
 
 import { singUp, ISignUp } from "./authService";
 
-import "./login.css";
+import "./auth.css";
 
 export function SingUp() {
 

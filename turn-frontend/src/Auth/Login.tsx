@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 import { Input } from "../common/components/Input";
 import { DangerLabel } from "../common/components/DangerLabel";
@@ -6,7 +7,7 @@ import { ErrorHandler, useErrorHandler } from "../common/utils/errorHandler";
 
 import { login, ILogin } from "./authService";
 
-import "./login.css";
+import "./auth.css";
 
 export function Login() {
 
@@ -14,6 +15,7 @@ export function Login() {
 
     const error: ErrorHandler = useErrorHandler();
 
+    let navigate = useNavigate();
 
     // Carga la variable form con los datos ingresados en el formulario
     const handleChange = (e: any) => {
@@ -34,8 +36,8 @@ export function Login() {
 
 
         try {
-            const token = await login(form);
-            alert('Token: ' + token.token);
+            await login(form);
+            navigate("/", { replace: true });
         } catch (e) {
             error.newErrorGeneric("Usuario o Contraseña incorrecta");
         }

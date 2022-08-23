@@ -1,6 +1,7 @@
 import axios from "axios";
 import { environment } from "../app/environment/environment";
 
+import { updateSessionUser, cleanupSessionUser } from "./userStore";
 import { IUser } from "../user/userService";
 
 
@@ -39,6 +40,7 @@ export async function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     axios.defaults.headers.common.Authorization = "";
+    cleanupSessionUser();
 }
 
 
@@ -64,14 +66,11 @@ export function getCurrentToken(): string | undefined {
     return result ? result : undefined;
 }
 
-export function getCurrentUser(): IUser | undefined {
-    return (localStorage.getItem("user") as unknown) as IUser
-}
 
 async function reloadCurrentUser(): Promise<IUser> {
     try {
-        const res = (await axios.get(environment.backendUrl + "/v1/users/current")).data as IUser;
-        localStorage.setItem("user", JSON.stringify(res));
+        const res = (await axios.get(environment.backendUrl + "/api/user/current")).data as IUser;
+        updateSessionUser(res);
         return Promise.resolve(res);
     } catch (err) {
         return Promise.reject(err);

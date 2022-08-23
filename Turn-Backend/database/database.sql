@@ -1,0 +1,43 @@
+CREATE DATABASE turn;
+
+--------------------------------------------------------------------
+--------------------  TABLAS  --------------------------------------
+--------------------------------------------------------------------
+
+DROP TABLE IF EXISTS USERS_ROL;
+DROP TABLE IF EXISTS USERS;
+DROP TABLE IF EXISTS ROL;
+
+CREATE TABLE IF NOT EXISTS USERS(
+	USER_ID serial PRIMARY KEY,
+	NAME VARCHAR(50) NOT NULL,
+	LASTNAME VARCHAR(50) NOT NULL,
+	PASSWORD VARCHAR(250) NOT NULL,
+	EMAIL VARCHAR(255) UNIQUE NOT NULL,
+	CREATE_ON TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	UPDATE_ON TIMESTAMP
+);
+
+
+CREATE TABLE IF NOT EXISTS ROL(
+	ROL_ID serial PRIMARY KEY,
+	ROLNAME VARCHAR(50) UNIQUE NOT NULL,
+	CREATE_ON TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE IF NOT EXISTS USERS_ROL (
+	USER_ID INT NOT NULL,
+	ROL_ID INT NOT NULL,
+	CREATE_ON TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (USER_ID, ROL_ID),
+	FOREIGN KEY (ROL_ID) REFERENCES ROL (ROL_ID) ON DELETE CASCADE,
+	FOREIGN KEY (USER_ID) REFERENCES USERS (USER_ID) ON DELETE CASCADE
+);
+
+--------------------------------------------------------------------
+--------------------  DATA  ----------------------------------------
+--------------------------------------------------------------------
+
+INSERT INTO ROL (ROLNAME) VALUES ('admin');
+INSERT INTO ROL (ROLNAME) VALUES ('customer');

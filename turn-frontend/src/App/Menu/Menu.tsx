@@ -7,7 +7,7 @@ import { MenuLogin } from "./menuLogin";
 import { useSessionUser } from "../../auth/userStore"
 
 import "./menu.css"
-import { IUser } from "../../user/userService";
+import { IUser } from "../../user/user.service";
 
 export const Menu = () => {
 

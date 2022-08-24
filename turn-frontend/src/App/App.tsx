@@ -6,6 +6,8 @@ import { Footer } from "./footer/footer";
 import { Login } from "../auth/login";
 import { SingUp } from "../auth/singup";
 import { User } from "../user/user"; 
+import { Schedule } from "../schedule/schedule"; 
+import { Turn } from "../turn/turn";
 
 
 const Home = () => <div>Home</div>;
@@ -23,6 +25,8 @@ class App extends Component {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/user" element={<User />} />
+              <Route path="/schedule" element={<Schedule />} />
+              <Route path="/turn" element={<Turn />} />
               <Route path="/login" element={<Login />} />
               <Route path="/singup" element={<SingUp />} />
             </Routes>

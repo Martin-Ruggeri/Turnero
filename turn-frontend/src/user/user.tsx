@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
-import { IUser, getAll } from "./userService";
+import { IUser, getAll } from "./user.service";
 
 import { useErrorHandler } from "../common/utils/errorHandler";
 

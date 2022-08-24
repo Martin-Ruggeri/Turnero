@@ -21,7 +21,7 @@ export const MenuAdmin = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
                     <li className="nav-link">
-                        <NavLink to="/turn" className="nav-link">Solicitar Turno</NavLink>
+                    <NavLink to="/schedule" className="nav-link">Solicitar Turno</NavLink>
                     </li>
                     <li className="nav-link">
                         <NavLink to="/turn" className="nav-link">Gestionar Turnos</NavLink>

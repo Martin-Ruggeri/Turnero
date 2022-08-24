@@ -2,7 +2,7 @@ import axios from "axios";
 import { environment } from "../app/environment/environment";
 
 import { updateSessionUser, cleanupSessionUser } from "./userStore";
-import { IUser } from "../user/userService";
+import { IUser } from "../user/user.service";
 
 
 axios.defaults.headers.common["Content-Type"] = "application/json";

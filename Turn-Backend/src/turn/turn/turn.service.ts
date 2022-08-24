@@ -34,7 +34,17 @@ export async function findAllBySchedule(idSchedule: number): Promise<Iturn[]> {
         const turns: Iturn[] = await repository.findAllBySchedule(idSchedule);
         return turns;
     }catch(error){
-        console.log(`Error Service (findByName) Turn: { Id Schedule: ${idSchedule}}`);
+        console.log(`Error Service (findAllBySchedule) Turn: { Id Schedule: ${idSchedule}}`);
+        throw new Error(error);
+    }
+}
+
+export async function findByDateSchedule(idSchedule: number, date:Date): Promise<Iturn[]> {
+    try{
+        const turns: Iturn[] = await repository.findByDateSchedule(idSchedule, date);
+        return turns;
+    }catch(error){
+        console.log(`Error Service (findByDateSchedule) Turn: { IdSchedule: ${idSchedule}, Date: ${date} }`);
         throw new Error(error);
     }
 }

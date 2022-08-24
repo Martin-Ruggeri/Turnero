@@ -4,13 +4,24 @@ import { pool } from "../../server/database"
 
 import { Iturn } from "./turn.model";
 import { IStateTurn } from "../stateTurn/stateTurn.model";
+import { Time } from "../../util/Time";
 
 const sqlAll: string = `SELECT T.*, ST.STATE_NAME FROM TURN T INNER JOIN STATE_TURN ST ON ST.STATE_TURN_CODE = T.STATE_TURN_CODE`;
+
+function parseTime(turns: Iturn[]) {
+    for (const turn of turns) {
+        turn.start_time = new Time(String(turn.start_time));
+        turn.end_time =  new Time(String(turn.end_time));
+    }
+
+    return turns;
+}
 
 export async function findAll(): Promise<Iturn[]>{
     const sql: string = sqlAll;
     try{
-        const { rows } = await pool.query(sql);
+        let { rows } = await pool.query(sql);
+        rows = parseTime(rows);
         return rows;
     }catch(error){
         console.error(error);
@@ -23,7 +34,8 @@ export async function findById(id: number): Promise<Iturn> {
     const sql: string = sqlAll + ` WHERE TURN_ID = $1`;
     const values = [id];
     try{
-        const { rows } = await pool.query(sql, values);
+        let { rows } = await pool.query(sql, values);
+        rows = parseTime(rows);
         return rows[0];
     }catch(error){
         console.error(error);
@@ -36,7 +48,8 @@ export async function findAllBySchedule(idSchedule: number): Promise<Iturn[]> {
     const sql: string = sqlAll + ` WHERE SCHEDULE_ID = $1`;
     const values = [idSchedule];
     try{
-        const { rows } = await pool.query(sql, values);
+        let { rows } = await pool.query(sql, values);
+        rows = parseTime(rows);
         return rows;
     }catch(error){
         console.error(error);
@@ -44,11 +57,25 @@ export async function findAllBySchedule(idSchedule: number): Promise<Iturn[]> {
     }
 }
 
-async function findByStartEndTimeSchedule(start_time: Date, end_time: Date, idSchedule: number): Promise<Iturn> {
-    const sql: string = sqlAll + ` WHERE START_TIME = $1 AND END_TIME = $2 AND SCHEDULE_ID = $3`;
-    const values = [start_time, end_time, idSchedule];
+export async function findByDateSchedule(idSchedule: number, date: Date): Promise<Iturn[]> {
+    const sql: string = sqlAll + ` WHERE SCHEDULE_ID = $1 AND DATE = $2`;
+    const values = [idSchedule, date];
     try{
-        const { rows } = await pool.query(sql, values);
+        let { rows } = await pool.query(sql, values);
+        rows = parseTime(rows);
+        return rows;
+    }catch(error){
+        console.error(error);
+        throw new Error(`Error BD (findByDateSchedule) Turn: { IdSchedule: ${idSchedule}, Date: ${date} }`);
+    }
+}
+
+async function findByStartEndTimeSchedule(date: Date ,start_time: Time, end_time: Time, idSchedule: number): Promise<Iturn> {
+    const sql: string = sqlAll + ` WHERE DATE = $1 AND START_TIME = $2 AND END_TIME = $3 AND SCHEDULE_ID = $4`;
+    const values = [date, start_time.toString(), end_time.toString(), idSchedule];
+    try{
+        let { rows } = await pool.query(sql, values);
+        rows = parseTime(rows);
         return rows[0];
     }catch(error){
         console.error(error);
@@ -58,11 +85,11 @@ async function findByStartEndTimeSchedule(start_time: Date, end_time: Date, idSc
 
 
 export async function save(turn: Iturn): Promise<Iturn> {
-    const sql : string = `INSERT INTO TURN (START_TIME, END_TIME, SCHEDULE_ID) VALUES ($1, $2, $3)`;
-    const values = [turn.start_time, turn.end_time, turn.schedule.schedule_id];
+    const sql : string = `INSERT INTO TURN (DATE, START_TIME, END_TIME, SCHEDULE_ID) VALUES ($1, $2, $3, $4)`;
+    const values = [turn.date ,turn.start_time.toString(), turn.end_time.toString(), turn.schedule.schedule_id];
     try{
         await pool.query(sql, values);
-        const newTurn = await findByStartEndTimeSchedule(turn.start_time, turn.end_time, turn.schedule.schedule_id);
+        const newTurn = await findByStartEndTimeSchedule(turn.date ,turn.start_time, turn.end_time, turn.schedule.schedule_id);
         return newTurn;
     }catch(error){
         console.error(error);

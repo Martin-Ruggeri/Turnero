@@ -3,11 +3,12 @@
 import { ISchedule } from "./schedule.model"
 import * as repository from "./schedule.repository"; 
 
+import { generateTurns} from "../turn/turn/turn.generate";
 
 export async function findAll(): Promise<ISchedule[]>{
     try{
-        const schedule: ISchedule[] = await repository.findAll();
-        return schedule;
+        const schedules: ISchedule[] = await repository.findAll();
+        return schedules;
     }catch(error){
         console.log(`Error Service (findAll) Schedule`);
         throw new Error(error);
@@ -37,6 +38,7 @@ export async function findByName(name: string): Promise<ISchedule> {
 export async function save(schedule: ISchedule): Promise<ISchedule> {
     try{
         const newSchedule: ISchedule = await repository.save(schedule);
+        await generateTurns(newSchedule);
         return newSchedule;
     }catch(error){
         console.log(`Error Service (save) Schedule: ${JSON.stringify(schedule)}`);

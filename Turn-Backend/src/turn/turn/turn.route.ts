@@ -2,7 +2,7 @@
 import * as express from "express";
 import { onlyLoggedIn , authAdmin } from "../../token/token.controller";
 
-import {findAll, findAllBySchedule, findById, save, removeById, takeTurn, cancelTurn, updateStateTurn} from "./turn.controller";
+import {findAll, findAllBySchedule, findByDateSchedule, findById, save, removeById, takeTurn, cancelTurn, updateStateTurn} from "./turn.controller";
 
 
 export function initModule(app: express.Express) {
@@ -20,6 +20,10 @@ export function initModule(app: express.Express) {
     app
     .route("/api/turn/schedule/:idSchedule")
     .get(onlyLoggedIn, findAllBySchedule)
+
+    app
+    .route("/api/turn/schedule/:idSchedule/:date")
+    .get(onlyLoggedIn, findByDateSchedule)
 
     app
     .route("/api/turn/:id/user")

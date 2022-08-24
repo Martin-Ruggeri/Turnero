@@ -26,9 +26,10 @@ export async function findById(request: express.Request, response: express.Respo
     }catch(error){
         console.log(error);
         console.log(`Error Controller (findById) Turn: { Id: ${id}}`);
-        response.status(404).json(`Error no se pudo encontrar el turno ${id}`);
+        response.status(404).json(`Error no se pudo encontrar el turno  ${id}`);
     }
 }
+
 
 export async function findAllBySchedule(request: express.Request, response: express.Response) {
     const idSchedule: number = parseInt(request.params.idSchedule);
@@ -39,6 +40,20 @@ export async function findAllBySchedule(request: express.Request, response: expr
         console.log(error);
         console.log(`Error Controller (findAllBySchedule) Turn: { Id Schedule: ${idSchedule}}`);
         response.status(404).json(`Error no se pududieron encontrar los turnos para la Agenda ${idSchedule}`);
+    }
+}
+
+
+export async function findByDateSchedule(request: express.Request, response: express.Response) {
+    const idSchedule: number = parseInt(request.params.idSchedule);
+    const date: Date = new Date (Date.parse(request.params.date));
+    try{
+        const turns: Iturn[] = await service.findByDateSchedule(idSchedule, date);
+        response.status(200).json(turns);
+    }catch(error){
+        console.log(error);
+        console.log(`Error Controller (findByDateSchedule) Turn: { IdSchedule: ${idSchedule}, Date: ${date} }`);
+        response.status(404).json(`Error no se pududieron encontrar los turnos para la Agenda ${idSchedule} y el dia ${date}`);
     }
 }
 

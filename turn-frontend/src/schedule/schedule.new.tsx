@@ -61,7 +61,7 @@ export function NewSchedule() {
                 <div className="card-body py-5 px-md-5">
                     <div className="row d-flex justify-content-center">
                         <div className="col-lg-6">
-                            <h2 className="fw-bold mb-5">Create una Cuenta</h2>
+                            <h2 className="fw-bold mb-5">Crear Agenda</h2>
                             <div>
                                 <Input
                                     label="Nombre Agenda"

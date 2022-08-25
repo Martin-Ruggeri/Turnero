@@ -14,7 +14,7 @@ export function Turn() {
 
     const loadTurns = async (date: Date = new Date()) => {
         try {
-            const result = await getTurnsByDateSchedule("2", formatDate(date, "MM-DD-YYYY"));
+            const result = await getTurnsByDateSchedule("1", formatDate(date, "MM-DD-YYYY"));
             setTurns(result);
         } catch (error) {
             errorHandler.newErrorGeneric("Error al buscar Turnos");

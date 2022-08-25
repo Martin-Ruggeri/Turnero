@@ -23,9 +23,6 @@ export const MenuMain = () => {
                     <li className="nav-link">
                         <NavLink to="/schedule" className="nav-link">Solicitar Turno</NavLink>
                     </li>
-                    <li className="nav-link">
-                        <NavLink to="/contacto" className="nav-link">Contacto</NavLink>
-                    </li>
                 </ul>
             </div>
 

@@ -30,7 +30,7 @@ export function Schedule() {
             <h2 className="text-center m-4">Agendas</h2>
             {schedules.map((schedule, i) => {
                 return (
-                    <Link to="/turn" key={i} className="mt-2 list-group-item list-group-item-action active" aria-current="true">
+                    <Link to={`/schedule/${schedule.schedule_id}/turn`} key={i} className="mt-2 list-group-item list-group-item-action active" aria-current="true">
                         <div className="d-flex w-100 justify-content-between">
                             <h5 className="mb-1">{schedule.name}</h5>
                             <small>{`Hora Inicio: ${schedule.start_time}`}</small>

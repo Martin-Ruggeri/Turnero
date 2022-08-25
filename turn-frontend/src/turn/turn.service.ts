@@ -48,7 +48,7 @@ export async function getAll(): Promise<Iturn[]> {
     }
 }
 
-export async function getTurnsByDateSchedule(idSchedule: string, date: string): Promise<Iturn[]> {
+export async function getTurnsByDateSchedule(idSchedule: number, date: string): Promise<Iturn[]> {
     try {
         let res = (await axios.get(environment.backendUrl + url_turns + "schedule/" + idSchedule + "/" + date)).data as Iturn[];
         res = parseAll(res);

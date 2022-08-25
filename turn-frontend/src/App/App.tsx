@@ -24,10 +24,10 @@ class App extends Component {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/singup" element={<SingUp />} />
-            <Route path="/user" element={<User />} />
+            <Route path="/user" element={ <User />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/create-schedule" element={<NewSchedule />} />
-            <Route path="/turn" element={<Turn />} />
+            <Route path="/schedule/:idSchedule/turn" element={<Turn />} />
           </Routes>
         </main>
         <footer>

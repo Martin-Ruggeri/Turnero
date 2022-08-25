@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useSessionUser } from "../auth/userStore";
 
 import "./home.css";
 
@@ -7,6 +8,7 @@ export function Home() {
 
     let navigate = useNavigate();
 
+    const user = useSessionUser();
 
     useEffect(() => {
     }, []);
@@ -17,7 +19,7 @@ export function Home() {
 
             <h1 className="m-4">Bienvenidos Barbería y Peluquería</h1>
 
-            <button className="btn btn-primary btn-lg m-3" onClick={() => { navigate("/schedule")}}>Solicitar Turno</button>
+            <button className="btn btn-primary btn-lg m-3" onClick={() => { user ? navigate("/schedule") : navigate("/login")}}>Solicitar Turno</button>
         </div>
     );
 }

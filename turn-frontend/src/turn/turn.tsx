@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
 
 import { Iturn, getTurnsByDateSchedule, takeTurn } from "./turn.service";
 
@@ -9,12 +10,14 @@ import { DangerLabel } from "../common/components/DangerLabel";
 export function Turn() {
     const [turns, setTurns] = useState<Iturn[]>([]);
 
+    const params = useParams();
     const errorHandler = useErrorHandler();
 
 
     const loadTurns = async (date: Date = new Date()) => {
         try {
-            const result = await getTurnsByDateSchedule("1", formatDate(date, "MM-DD-YYYY"));
+            const idSchedule = params.idSchedule ? parseInt(params.idSchedule) : 1;
+            const result = await getTurnsByDateSchedule(idSchedule, formatDate(date, "MM-DD-YYYY"));
             setTurns(result);
         } catch (error) {
             errorHandler.newErrorGeneric("Error al buscar Turnos");
@@ -57,7 +60,7 @@ export function Turn() {
                     <label htmlFor="dateTurn" className="col-form-label">Fecha Turno</label>
                 </div>
                 <div className="col-auto">
-                    <input type="date" id="dateTurn" className="form-control" onChange={onChangeDateTurn} />
+                    <input type="date" id="dateTurn" className="form-control" onChange={onChangeDateTurn}/>
                 </div>
             </div>
 

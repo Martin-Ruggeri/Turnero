@@ -1,0 +1,17 @@
+.background-image{
+    background-image: url('https://media.istockphoto.com/photos/flat-lay-composition-with-hairdresser-tools-scissors-combs-hair-iron-picture-id1272809539?b=1&k=6&m=1272809539&s=170667a&w=0&h=nOHB_vI2hdRp7j-6r_o8FuIa9F-_bWn2-OozRVz3Z84=');
+    height: 300px;
+}
+
+.background-form{
+    margin-top: -100px;
+    background: hsla(0, 0%, 100%, 0.7);
+    backdrop-filter: blur(30px);
+}
+
+.background-form-login{
+    margin-top: -100px;
+    background: hsla(0, 0%, 100%, 0.7);
+    backdrop-filter: blur(30px);
+    width: 600px;
+}

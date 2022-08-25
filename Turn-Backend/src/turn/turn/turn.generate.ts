@@ -1,17 +1,14 @@
 "use strict";
 import { Time } from "../../util/Time";
 
-import * as serviceStateTurn from "../stateTurn/stateTurn.service";
 import * as serviceTurn from "../turn/turn.service";
 
 import { ISchedule } from "../../schedule/schedule.model";
-import { IStateTurn } from "../stateTurn/stateTurn.model";
 import { Iturn } from "./turn.model";
 
 export async function generateTurns(schedule: ISchedule) {
     // Variables Globales
     let turns: Iturn[] = [];
-    let state_libre: IStateTurn = await serviceStateTurn.findById("DISP");
 
 
     // Dias Maximos: cantidad de dias que se deben crear por Agenda. EJ: dia inicio: 10/10/2022 , dia fin: 15/10/2022 => day_max = 6
@@ -39,8 +36,8 @@ export async function generateTurns(schedule: ISchedule) {
                 "date": day_turn,
                 "start_time": start_time,
                 "end_time": end_time,
-                "schedule": schedule,
-                "state": state_libre
+                "schedule_id": schedule.schedule_id,
+                "state_turn_code": "DISP"
             }
 
             const newTurn : Iturn = await serviceTurn.save(turn as Iturn);

@@ -44,21 +44,8 @@ export async function findById(id: number): Promise<Iturn> {
 }
 
 
-export async function findAllBySchedule(idSchedule: number): Promise<Iturn[]> {
-    const sql: string = sqlAll + ` WHERE SCHEDULE_ID = $1`;
-    const values = [idSchedule];
-    try{
-        let { rows } = await pool.query(sql, values);
-        rows = parseTime(rows);
-        return rows;
-    }catch(error){
-        console.error(error);
-        throw new Error(`Error BD (findAllBySchedule) Turn: { IdSchedule: ${idSchedule} }`);
-    }
-}
-
 export async function findByDateSchedule(idSchedule: number, date: Date): Promise<Iturn[]> {
-    const sql: string = sqlAll + ` WHERE SCHEDULE_ID = $1 AND DATE = $2`;
+    const sql: string = sqlAll + ` WHERE SCHEDULE_ID = $1 AND DATE = $2 ORDER BY START_TIME`;
     const values = [idSchedule, date];
     try{
         let { rows } = await pool.query(sql, values);
@@ -86,10 +73,10 @@ async function findByStartEndTimeSchedule(date: Date ,start_time: Time, end_time
 
 export async function save(turn: Iturn): Promise<Iturn> {
     const sql : string = `INSERT INTO TURN (DATE, START_TIME, END_TIME, SCHEDULE_ID) VALUES ($1, $2, $3, $4)`;
-    const values = [turn.date ,turn.start_time.toString(), turn.end_time.toString(), turn.schedule.schedule_id];
+    const values = [turn.date ,turn.start_time.toString(), turn.end_time.toString(), turn.schedule_id];
     try{
         await pool.query(sql, values);
-        const newTurn = await findByStartEndTimeSchedule(turn.date ,turn.start_time, turn.end_time, turn.schedule.schedule_id);
+        const newTurn = await findByStartEndTimeSchedule(turn.date ,turn.start_time, turn.end_time, turn.schedule_id);
         return newTurn;
     }catch(error){
         console.error(error);

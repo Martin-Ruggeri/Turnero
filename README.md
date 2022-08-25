@@ -19,7 +19,9 @@ La aplicación se modelo para poder solicitar turnos en una peluquería.
 
 Se deben seguir los siguientes pasos:
 
-1. Crear Base de datos, para ello ir a la carpeta `Turn-Backend\database` y ejecutar el script database.sql
+1. Crear Base de datos 'turn'
+ * Primero crear Base de Datos 'turn', para ello ejecutar `CREATE DATABASE turn;`
+ * Luego ir a la carpeta `Turn-Backend\database` y ejecutar el script database.sql
 2. Abrir una consola y acceder a la carpeta `Turn-Backend`
 3. Ejecutar `npm install`
 4. Ejecutar `npm start`

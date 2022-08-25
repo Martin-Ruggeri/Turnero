@@ -24,13 +24,7 @@ export const MenuAdmin = () => {
                     <NavLink to="/schedule" className="nav-link">Solicitar Turno</NavLink>
                     </li>
                     <li className="nav-link">
-                        <NavLink to="/turn" className="nav-link">Gestionar Turnos</NavLink>
-                    </li>
-                    <li className="nav-link">
                         <NavLink to="/schedule" className="nav-link">Gestionar Agendas</NavLink>
-                    </li>
-                    <li className="nav-link">
-                        <NavLink to="/user" className="nav-link">Usuarios</NavLink>
                     </li>
                     <li className="nav-link">
                         <NavLink to="/contacto" className="nav-link">Contacto</NavLink>

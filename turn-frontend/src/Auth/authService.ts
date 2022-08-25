@@ -75,3 +75,13 @@ async function reloadCurrentUser(): Promise<IUser> {
         return Promise.reject(err);
     }
 }
+
+
+export async function currentUser(): Promise<IUser> {
+    try {
+        const res = (await axios.get(environment.backendUrl + "/api/user/current")).data as IUser;
+        return Promise.resolve(res);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+}

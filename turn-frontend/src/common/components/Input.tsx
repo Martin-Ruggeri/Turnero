@@ -3,7 +3,7 @@ import { ErrorHandler } from "../utils/errorHandler"
 import ErrorLabel from "./ErrorLabel"
 
 interface InputProps {
-    type?: "text" | "number" | "button" | "checkbox" | "date" | "email" | "file" | "password" | "radio",
+    type?: "text" | "number" | "button" | "checkbox" | "date" | "time" | "email" | "file" | "password" | "radio",
     label: string,
     name: string,
     errorHandler: ErrorHandler,

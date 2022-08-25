@@ -7,6 +7,7 @@ import { Login } from "../auth/login";
 import { SingUp } from "../auth/singup";
 import { User } from "../user/user"; 
 import { Schedule } from "../schedule/schedule"; 
+import { NewSchedule } from "../schedule/schedule.new"; 
 import { Turn } from "../turn/turn";
 
 
@@ -26,6 +27,7 @@ class App extends Component {
               <Route path="/about" element={<About />} />
               <Route path="/user" element={<User />} />
               <Route path="/schedule" element={<Schedule />} />
+              <Route path="/create-schedule" element={<NewSchedule />} />
               <Route path="/turn" element={<Turn />} />
               <Route path="/login" element={<Login />} />
               <Route path="/singup" element={<SingUp />} />

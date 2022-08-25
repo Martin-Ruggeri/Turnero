@@ -1,6 +1,17 @@
 # Turnero
 
-La aplicación se modelo para poder solicitar turnos en una peluquería.
+La aplicación Turnero permite realizar la gestión de agendas y solicitud de turnos sobre dichas agendas.
+
+La tematica de la aplicacion es una barberia y peluquería, sobre la cual los clientes pueden solicitar un turno para distintos servicios como:
+ * Corte de pelo
+ * Teñido
+ * Recorte de barba
+
+Cada uno de esos servicios corresponde a una agenda distinta, inicialmente la aplicacion no posee agendas, por lo que se deben dar de alta para poder utilizarlas.
+
+Funcionalmente posee 2 Roles:
+ * El rol administrador (Peluquero), permite gestionar Agendas y solicitar turnos en las agendas existentes.
+ * El rol por defecto (Clientes), permite solicitar turnos en las agendas existentes. 
 
 
 ---
@@ -20,8 +31,9 @@ La aplicación se modelo para poder solicitar turnos en una peluquería.
 Se deben seguir los siguientes pasos:
 
 1. Crear Base de datos 'turn'
- * Primero crear Base de Datos 'turn', para ello ejecutar `CREATE DATABASE turn;`
+ * Primero crear Base de Datos 'turn', para ello ejecutar `CREATE DATABASE turn;`.
  * Luego ir a la carpeta `Turn-Backend\database` y ejecutar el script database.sql
+ * Validar que se crearon correctamente las tablas correspondientes en la Base de Datos 'turn'.
 2. Abrir una consola y acceder a la carpeta `Turn-Backend`
 3. Ejecutar `npm install`
 4. Ejecutar `npm start`
